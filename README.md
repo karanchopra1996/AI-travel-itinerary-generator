@@ -1,40 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Travel AI Generator
+This project is a **Travel AI Generator** app built with **Next.js** and **OpenAI**. The app allows users to generate a 3-day travel itinerary based on their selected state and city in the USA. The app uses dynamic data from OpenAI's GPT-3 model to generate an itinerary based on the user's input.
 
-## Getting Started
+### Features
+- **State and City Selection**: Users can select a state and city from a dropdown list of cities in the USA.
+- **Number of Days**: Users can specify the number of days for the trip.
+- **AI-Generated Itinerary**: Once the user selects their desired trip details, the app generates a customized travel itinerary using OpenAI’s GPT-4 model.
+- **Client-Side Rendering**: Dynamic data such as cities are rendered only after the component mounts to avoid hydration issues.
 
-First, run the development server:
+### Tech Stack
+- **Frontend**: React, Next.js, `react-select` for dropdown menus
+- **Backend**: OpenAI's GPT-3 API to generate itineraries
+- **Styling**: Tailwind CSS (optional, for styling)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Clone the Repository
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+  First, clone the repository to your local machine:
+  git clone https://github.com/yourusername/travel-ai-generator.git
+  #### cd travel-ai-generator
+### 2. Install Dependencies
+Run the following command to install the required dependencies:
+#### npm install
+### 3. Set up .env.local
+Create a .env.local file at the root of the project to store your OpenAI API key:
+env
+#### OPENAI_API_KEY=your_openai_api_key_here
+You can get your OpenAI API key by signing up at OpenAI.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Development
+### 1. Run the Development Server
+After installing the dependencies and setting up the environment variables, start the development server:
+#### npm run dev
+You can now visit the app at http://localhost:3000 to start using it.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### 2. Using the App
+Select state: Choose a state from the dropdown list.
+Select city: Once the state is selected, choose a city from the corresponding list of cities in that state.
+Enter number of days: Input the number of days for your trip.
+Generate your itinerary: Click on the "Generate My Trip" button to generate a travel itinerary using OpenAI's GPT-4 model.
+### 3. Example API Call
+The app sends the following data to the backend to generate an itinerary:
+  {
+    "country": "USA",
+    "state": "California",
+    "city": "San Francisco",
+    "days": 3
+  }
+The backend then processes this request using OpenAI's GPT-3 model to create a customized travel itinerary.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## Structure
+### 1. Frontend (React + Next.js)
+pages/index.js: The main UI where users can select a state, city, and number of days for their trip.
+components/Select.js: The react-select dropdown components for selecting the state and city.
+pages/api/generate-itinerary.js: The API route that handles generating the travel itinerary using OpenAI's GPT-3 model.
+### 2. Backend (OpenAI GPT-4)
+lib/openai.js: The OpenAI client that interacts with the GPT-3 API.
+pages/api/generate-itinerary.js: The API route that sends the trip details to the OpenAI API and returns the generated itinerary.
