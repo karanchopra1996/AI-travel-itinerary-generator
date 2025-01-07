@@ -35,16 +35,16 @@ After installing the dependencies and setting up the environment variables, star
 You can now visit the app at http://localhost:3000 to start using it.
 
 ### 2. Using the App
-Select state: Choose a state from the dropdown list.
-Select city: Once the state is selected, choose a city from the corresponding list of cities in that state.
-Enter number of days: Input the number of days for your trip.
-Generate your itinerary: Click on the "Generate My Trip" button to generate a travel itinerary using OpenAI's GPT-4 model.
+- Select state: Choose a state from the dropdown list.
+- Select city: Once the state is selected, choose a city from the corresponding list of cities in that state.
+- Enter number of days: Input the number of days for your trip.
+- Generate your itinerary: Click on the "Generate My Trip" button to generate a travel itinerary using OpenAI's GPT-4 model.
 
 ## Structure
 ### 1. Frontend (React + Next.js)
-pages/index.js: The main UI where users can select a state, city, and number of days for their trip.
-components/Select.js: The react-select dropdown components for selecting the state and city.
-pages/api/generate-itinerary.js: The API route that handles generating the travel itinerary using OpenAI's GPT-3 model.
+- pages/index.js: The main UI where users can select a state, city, and number of days for their trip.
+- components/Select.js: The react-select dropdown components for selecting the state and city.
+- pages/api/generate-itinerary.js: The API route that handles generating the travel itinerary using OpenAI's GPT-3 model.
 ### 2. Backend (OpenAI GPT-4)
-lib/openai.js: The OpenAI client that interacts with the GPT-3 API.
+- lib/openai.js: The OpenAI client that interacts with the GPT-3 API.
 pages/api/generate-itinerary.js: The API route that sends the trip details to the OpenAI API and returns the generated itinerary.
