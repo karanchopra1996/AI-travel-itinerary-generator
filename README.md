@@ -1,4 +1,4 @@
-# AL Travel Intinerary Generator
+# AI Travel Intinerary Generator
 This project is a **Travel AI Generator** app built with **Next.js** and **OpenAI**. The app allows users to generate a 3-day travel itinerary based on their selected state and city in the USA. The app uses dynamic data from OpenAI's GPT-3.5 model to generate an itinerary based on the user's input.
 
 ### Features
