@@ -1,114 +1,162 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import { useState, useEffect } from 'react';
+import Select from 'react-select';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const usaCities = {
+  '': ['Undefined'],
+'Alabama': ['Birmingham', 'Montgomery', 'Mobile', 'Huntsville'],
+'Alaska': ['Anchorage', 'Fairbanks', 'Juneau'],
+'Arizona': ['Phoenix', 'Tucson', 'Mesa', 'Scottsdale'],
+'Arkansas': ['Little Rock', 'Fort Smith', 'Fayetteville'],
+'California': ['Los Angeles', 'San Francisco', 'San Diego', 'Sacramento'],
+'Colorado': ['Denver', 'Colorado Springs', 'Boulder'],
+'Connecticut': ['Bridgeport', 'New Haven', 'Hartford'],
+'Delaware': ['Wilmington', 'Dover', 'Newark'],
+'Florida': ['Miami', 'Orlando', 'Tampa', 'Jacksonville'],
+'Georgia': ['Atlanta', 'Savannah', 'Augusta'],
+'Hawaii': ['Honolulu', 'Hilo', 'Kailua'],
+'Idaho': ['Boise', 'Nampa', 'Meridian'],
+'Illinois': ['Chicago', 'Springfield', 'Peoria'],
+'Indiana': ['Indianapolis', 'Fort Wayne', 'South Bend'],
+'Iowa': ['Des Moines', 'Cedar Rapids', 'Davenport'],
+'Kansas': ['Wichita', 'Overland Park', 'Kansas City'],
+'Kentucky': ['Louisville', 'Lexington', 'Bowling Green'],
+'Louisiana': ['New Orleans', 'Baton Rouge', 'Shreveport'],
+'Maine': ['Portland', 'Bangor', 'Lewiston'],
+'Maryland': ['Baltimore', 'Annapolis', 'Rockville'],
+'Massachusetts': ['Boston', 'Cambridge', 'Springfield'],
+'Michigan': ['Detroit', 'Grand Rapids', 'Lansing'],
+'Minnesota': ['Minneapolis', 'St. Paul', 'Rochester'],
+'Mississippi': ['Jackson', 'Gulfport', 'Southaven'],
+'Missouri': ['Kansas City', 'St. Louis', 'Springfield'],
+'Montana': ['Billings', 'Missoula', 'Great Falls'],
+'Nebraska': ['Omaha', 'Lincoln', 'Bellevue'],
+'Nevada': ['Las Vegas', 'Reno', 'Henderson'],
+'New Hampshire': ['Manchester', 'Nashua', 'Concord'],
+'New Jersey': ['Newark', 'Jersey City', 'Trenton'],
+'New Mexico': ['Albuquerque', 'Santa Fe', 'Las Cruces'],
+'New York': ['New York City', 'Buffalo', 'Rochester'],
+'North Carolina': ['Charlotte', 'Raleigh', 'Greensboro'],
+'North Dakota': ['Fargo', 'Bismarck', 'Grand Forks'],
+'Ohio': ['Cleveland', 'Columbus', 'Cincinnati'],
+'Oklahoma': ['Oklahoma City', 'Tulsa', 'Norman'],
+'Oregon': ['Portland', 'Salem', 'Eugene'],
+'Pennsylvania': ['Philadelphia', 'Pittsburgh', 'Harrisburg'],
+'Rhode Island': ['Providence', 'Warwick', 'Cranston'],
+'South Carolina': ['Charleston', 'Columbia', 'Greenville'],
+'South Dakota': ['Sioux Falls', 'Rapid City', 'Aberdeen'],
+'Tennessee': ['Nashville', 'Memphis', 'Knoxville'],
+'Texas': ['Houston', 'Dallas', 'Austin', 'San Antonio'],
+'Utah': ['Salt Lake City', 'Provo', 'Orem'],
+'Vermont': ['Burlington', 'Essex', 'Rutland'],
+'Virginia': ['Richmond', 'Virginia Beach', 'Norfolk'],
+'Washington': ['Seattle', 'Spokane', 'Tacoma'],
+'West Virginia': ['Charleston', 'Huntington', 'Morgantown'],
+'Wisconsin': ['Milwaukee', 'Madison', 'Green Bay'],
+'Wyoming': ['Cheyenne', 'Casper', 'Laramie']
+};
 
 export default function Home() {
-  return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [isMounted, setIsMounted] = useState(false); // State to check if the component is mounted
+  const [country] = useState("USA");  // Fixed to USA
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [days, setDays] = useState(1);
+  const [itinerary, setItinerary] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  // This state holds the states list from usaCities
+  const states = Object.keys(usaCities).map((state) => ({
+    value: state,
+    label: state,
+  }));
+
+  // Set the component as mounted after the first render
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // If not mounted, prevent rendering of client-only components
+  if (!isMounted) {
+    return null; // Return null or a loading spinner here
+  }
+
+  const generateItinerary = async () => {
+    setIsLoading(true);
+    setError("");
+    setItinerary("");
+
+    try {
+      const res = await fetch("/api/generate-itinerary", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ country, state, city, days }),
+      });
+      const data = await res.json();
+      setItinerary(data.itinerary);
+    } catch (error) {
+      setError("Failed to generate itinerary.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleStateChange = (selectedOption) => {
+    setState(selectedOption.value);
+    setCity(""); // Clear selected city when state changes
+  };
+
+  const handleCityChange = (selectedOption) => {
+    setCity(selectedOption.value);
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-3xl font-bold mb-6">Travel AI Generator</h1>
+
+      {/* State Dropdown */}
+      <Select
+        options={states}
+        onChange={handleStateChange}
+        placeholder="Select state"
+        className="mb-4"
+      />
+
+      {/* City Dropdown */}
+      {state && (
+        <Select
+          options={usaCities[state].map((city) => ({ value: city, label: city }))}
+          onChange={handleCityChange}
+          placeholder="Select city"
+          className="mb-4"
+        />
+      )}
+
+      {/* Number of days input */}
+      <input
+        type="number"
+        value={days}
+        onChange={(e) => setDays(e.target.value)}
+        placeholder="Number of days"
+        className="px-4 py-2 border rounded mb-4"
+      />
+
+      {/* Generate button */}
+      <button
+        onClick={generateItinerary}
+        className="px-4 py-2 bg-blue-500 text-white rounded"
+        disabled={isLoading}
+      >
+        {isLoading ? "Generating..." : "Generate My Trip"}
+      </button>
+
+      {/* Error message */}
+      {error && <p className="text-red-500 mt-4">{error}</p>}
+
+      {/* Itinerary Display */}
+      {itinerary && <div className="mt-4">{itinerary}</div>}
     </div>
   );
 }
