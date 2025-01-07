@@ -39,15 +39,6 @@ Select state: Choose a state from the dropdown list.
 Select city: Once the state is selected, choose a city from the corresponding list of cities in that state.
 Enter number of days: Input the number of days for your trip.
 Generate your itinerary: Click on the "Generate My Trip" button to generate a travel itinerary using OpenAI's GPT-4 model.
-### 3. Example API Call
-The app sends the following data to the backend to generate an itinerary:
-  {
-    "country": "USA",
-    "state": "California",
-    "city": "San Francisco",
-    "days": 3
-  }
-The backend then processes this request using OpenAI's GPT-3 model to create a customized travel itinerary.
 
 ## Structure
 ### 1. Frontend (React + Next.js)
